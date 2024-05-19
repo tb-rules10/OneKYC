@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+
+  body, body.light {
+    background-color: #E2E7EA;
+    /* background-color: #DBDDE2; */
+  }
+  
+  body.dark {
+    /* background-color: #E2E7EA; */
+    /* background-color: #DBDDE2; */
+    background-color: #1E2329;
+  }
+
+  .dark {
+    /* background-color: #E2E7EA; */
+    /* background-color: #DBDDE2; */
+    background-color: #000300;
+  }
+  
+body, button, input{
+  font-family: "Open Sans", sans-serif;
+  overflow: auto;
+}
+
+.parent{
+  @apply w-screen h-screen overflow-hidden flex px-20 py-4;
+}
+
+.link {
+	/* color: #18272F; */
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background-color: #2F3138;
+  bottom: 0;
+  left: 0;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform .3s ease-in-out;
+}
+
+.link:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
