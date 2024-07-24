@@ -16,6 +16,7 @@ function AgentDashboard({ handleSubmit }) {
   const [verifyShow, setVerifyShow] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [shareFlag, setShareFlag] = useState(false);
+  const [verify, setVerify] = useState(false );
   const [userData, setUserData] = useState({
     status: "",
     name: "",
@@ -43,14 +44,15 @@ function AgentDashboard({ handleSubmit }) {
 
   const fetchShareRequests = async () => {
     try {
-      showStatus("Fetching");
       const list = await contract.viewShareRequests();
       console.log(list);
       if (list.length === 0) throw new Error("No pending applications");
       setShareFlag(true);
       setKYCList(list);
+      setVerify(false);
       setListShow(true);
       setKYCShow(false);
+      setVerify(false);
     } catch (error) {
       showError();
       // console.log(error);
@@ -76,6 +78,7 @@ function AgentDashboard({ handleSubmit }) {
   };
 
   const view = async () => {
+    setVerify(false);
     if (selectedUser == null) {
       let value = await prompt("Enter Public Address:");
       console.log(value);
@@ -166,6 +169,7 @@ function AgentDashboard({ handleSubmit }) {
           autoClose: false,
         });
         toast.success("Documents Verified");
+        setVerify(true);
       // } else
       //   toast.update(id, {
       //     render: response.data.reason,
@@ -375,7 +379,7 @@ function AgentDashboard({ handleSubmit }) {
                 </svg>
               </Button>
               <div className="flex items-center gap-2 mt-4">
-                <Button onClick={approveKYC} color="green" disabled={userData.status == "Approved"}>
+                <Button onClick={approveKYC} color="green" disabled={!verify ||userData.status == "Approved"}>
                   Approve
                 </Button>
                 <Button onClick={rejectKYC} color="red" disabled={userData.status == "Approved"}>

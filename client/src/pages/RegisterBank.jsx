@@ -47,7 +47,7 @@ function RegisterBank() {
         // console.log(await contract.getEntity());
 
         toast.update(id, { render: "Agent Registered", type: "success", isLoading: false, autoClose: true }, );
-        // navigate('/');
+        navigate('/');
       } else {
         showError("Invalid Key");
       }
